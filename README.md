@@ -2,7 +2,7 @@
 Jump 'n' Run meets RPG!
 
 ## Changelog
-Alle wichtigen Änderungen an diesem Projekt werden in diesem Abschnitt dokumentiert.
+All notable changes to this project will be documented in this file.
 
 ### [0.1.0] - 2018-11-23
 #### Added
