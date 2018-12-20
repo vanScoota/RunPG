@@ -1011,7 +1011,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0909fa015acdcb64a8622e9b57789158, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSkill: 1
-  doubleJumpSkill: 0
+  doubleJumpSkill: 1
   highJumpSkill: 0
   speed: 5
   jumpHeight: 11
@@ -1082,3 +1082,4 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 311
+  animator: {fileID: 716990981}
