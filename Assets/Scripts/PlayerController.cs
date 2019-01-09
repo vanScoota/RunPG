@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 11f;
     public float highJumpHeight = 14f;
     public LayerMask groundLayers;
+    public Animator animator;
 
     private bool isFacingRight = true;
     private bool isGrounded = false;
@@ -39,7 +40,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        tryJump = Input.GetButtonDown("Jump") ? true : tryJump;
+        if(Input.GetButtonDown("Jump"))
+        {
+            tryJump = true;
+            //animator.SetBool("IsJumping", true);
+        }
     }
 
     void FixedUpdate()
@@ -97,6 +102,8 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         float horizontalMove = horizontalInput * speed;
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         bool doJump = false;
         if (tryJump)
