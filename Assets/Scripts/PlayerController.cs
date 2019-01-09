@@ -45,6 +45,15 @@ public class PlayerController : MonoBehaviour
             tryJump = true;
             //animator.SetBool("IsJumping", true);
         }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            animator.SetBool("IsDucking", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            animator.SetBool("IsDucking", false);
+        }
     }
 
     void FixedUpdate()
