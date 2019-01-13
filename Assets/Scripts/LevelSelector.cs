@@ -10,7 +10,18 @@ public class LevelSelector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//if(Player)
+
+        PlayerPrefs.SetInt("SampleScene", 1);
+
+        if (PlayerPrefs.GetInt(sceneToLoad.ToString()) == 1)
+        {
+            this.GetComponent<Button>().interactable = true;
+        }
+
+        else
+        {
+            this.GetComponent<Button>().interactable = false;
+        }
 	}
 	
 	// Update is called once per frame
