@@ -14,3 +14,15 @@ All notable changes to this project will be documented in this file.
 #### Added
 - Created Jump Tiles and Run Tiles
 - Added Run Animation
+
+### [0.1.2] - 2019-01-09
+#### Added
+- tiles for ducking and crouching
+- Ducking Animation
+
+### [0.1.3] - 2019-01-11
+#### Added
+- Crouching Animation
+- Sipmle Jump Animation
+#### Updated
+- Crouching Tiles

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -38,20 +39,44 @@ public class PlayerController : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
     }
 
-    void Update()
-    {
-        if(Input.GetButtonDown("Jump"))
-        {
-            tryJump = true;
-            //animator.SetBool("IsJumping", true);
-        }
-    }
+    void Update(){}
 
     void FixedUpdate()
     {
         CheckForGround();
         Move();
         //measureJump();
+
+        // Jumping
+        if (Input.GetButtonDown("Jump"))
+        {
+            tryJump = true;
+            animator.SetBool("IsJumping", true);
+        }
+        else if (isGrounded && rigidbody.velocity.y <= 0)
+        {
+            animator.SetBool("IsJumping", false);
+        }
+
+        // Ducking
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            animator.SetBool("IsDucking", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            animator.SetBool("IsDucking", false);
+        }
+
+        // Crouching
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            animator.SetBool("IsMovingHorizontally", true);
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            animator.SetBool("IsMovingHorizontally", false);
+        }
     }
 
     //void measureJump()
