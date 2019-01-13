@@ -1,4 +1,4 @@
 sceneSetups:
-- path: C:/Users/Markus/Documents/Audio&Bildformate/ABF_3/Assets/Scenes/SampleScene.unity
+- path: Assets/Scenes/SampleScene.unity
   isLoaded: 1
   isActive: 1

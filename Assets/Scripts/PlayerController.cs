@@ -39,25 +39,8 @@ public class PlayerController : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
     }
 
-    void Update(){}
-
-    void FixedUpdate()
+    void Update()
     {
-        CheckForGround();
-        Move();
-        //measureJump();
-
-        // Jumping
-        if (Input.GetButtonDown("Jump"))
-        {
-            tryJump = true;
-            animator.SetBool("IsJumping", true);
-        }
-        else if (isGrounded && rigidbody.velocity.y <= 0)
-        {
-            animator.SetBool("IsJumping", false);
-        }
-
         // Ducking
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -76,6 +59,36 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
         {
             animator.SetBool("IsMovingHorizontally", false);
+        }
+
+        // GameOver
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            animator.SetBool("GameOver", true);
+        }
+
+        // Resporn
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            animator.SetBool("GameOver", false);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        CheckForGround();
+        Move();
+        //measureJump();
+
+        // Jumping
+        if (Input.GetButtonDown("Jump"))
+        {
+            tryJump = true;
+            animator.SetBool("IsJumping", true);
+        }
+        else if (isGrounded && rigidbody.velocity.y <= 0)
+        {
+            animator.SetBool("IsJumping", false);
         }
     }
 

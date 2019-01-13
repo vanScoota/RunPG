@@ -26,3 +26,8 @@ All notable changes to this project will be documented in this file.
 - Sipmle Jump Animation
 #### Updated
 - Crouching Tiles
+
+### [0.1.4] - 2019-01-13
+#### Added
+- Dying Tiles
+- Dying Animation triggered by pressing button "D"
