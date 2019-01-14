@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public bool jumpSkill = false;
     public bool doubleJumpSkill = false;
     public bool highJumpSkill = false;
+    public bool duckSkill = false;
+    public bool crouchSkill = false;
 
     public float speed = 5f;
     // best 11  and 14 with 4 gravity
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = false;
     private bool tryJump = false;
     private bool hasDoubleJumped = false;
+    private bool tryCrouch = false;
+    private bool tryDuck = false;
 
     new private Rigidbody2D rigidbody;
     new private BoxCollider2D collider;
@@ -44,27 +48,28 @@ public class PlayerController : MonoBehaviour
         // Ducking
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            animator.SetBool("IsDucking", true);
+            tryDuck = true;
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
-            animator.SetBool("IsDucking", false);
+            tryDuck = false;
         }
 
         // Crouching
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow)) && animator.GetBool("IsDucking"))
         {
-            animator.SetBool("IsMovingHorizontally", true);
+            tryCrouch = true;
         }
         else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
         {
-            animator.SetBool("IsMovingHorizontally", false);
+            tryCrouch = false;
         }
 
         // GameOver
         if (Input.GetKeyDown(KeyCode.D))
         {
             animator.SetBool("GameOver", true);
+
         }
 
         // Resporn
@@ -84,7 +89,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             tryJump = true;
-            animator.SetBool("IsJumping", true);
         }
         else if (isGrounded && rigidbody.velocity.y <= 0)
         {
@@ -143,11 +147,14 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
+        // Jump
         bool doJump = false;
         if (tryJump)
         {
             if (jumpSkill)
             {
+                animator.SetBool("IsJumping", true);
+
                 if (isGrounded)
                 {
                     doJump = true;
@@ -170,6 +177,44 @@ public class PlayerController : MonoBehaviour
         float verticalMove = doJump ? (highJumpSkill ? highJumpHeight : jumpHeight) : rigidbody.velocity.y;
 
         rigidbody.velocity = new Vector2(horizontalMove, verticalMove);
+
+        // Duck
+        if (tryDuck)
+        {
+            if(duckSkill)
+            {
+                animator.SetBool("IsDucking", true);
+            }
+        } else if (!tryDuck)
+        {
+            animator.SetBool("IsDucking", false);
+        }
+
+
+        // Crouch
+        if (tryCrouch)
+        {
+            if (crouchSkill)
+            {
+                const float ySize = 2f;
+                const float xSize = 2f;
+                collider.size = new Vector3(xSize, ySize);
+
+                speed = 1f;
+
+                animator.SetBool("IsCrouching", true);
+            }
+        }
+        else if (!tryCrouch)
+        {
+            const float ySize = 2f;
+            const float xSize = 1f;
+            collider.size = new Vector3(xSize, ySize);
+
+            speed = 5f;
+
+            animator.SetBool("IsCrouching", false);
+        }
 
         // Flip the character around if it's facing the wrong direction
         if (horizontalInput > 0 && !isFacingRight)

@@ -31,3 +31,8 @@ All notable changes to this project will be documented in this file.
 #### Added
 - Dying Tiles
 - Dying Animation triggered by pressing button "D"
+
+### [0.1.5] - 2019-01-14
+#### Added
+- public properties to activate/deactivate skills
+- when chrouching collider changes so the head does'nt disappear within the wall
