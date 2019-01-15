@@ -143,6 +143,8 @@ public class PlayerController : MonoBehaviour
         // Use GetAxisRaw for more precise movement
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
+        speed = 5;
+
         float horizontalMove = horizontalInput * speed;
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
@@ -181,15 +183,15 @@ public class PlayerController : MonoBehaviour
         // Duck
         if (tryDuck)
         {
-            if(duckSkill)
+            if (duckSkill)
             {
                 animator.SetBool("IsDucking", true);
             }
-        } else if (!tryDuck)
+        }
+        else if (!tryDuck)
         {
             animator.SetBool("IsDucking", false);
         }
-
 
         // Crouch
         if (tryCrouch)
