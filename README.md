@@ -42,3 +42,8 @@ All notable changes to this project will be documented in this file.
 - script so main camera follows the player
 - boundaries for the camera so it stops when level is over 
 - imroved sample scene level 
+
+### [0.1.6] - 2019-01-17
+#### Added
+- Camera script again 
+- Changed Crouching Sprites 
