@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float highJumpHeight = 14f;
     public LayerMask groundLayers;
     public Animator animator;
+    public GameObject tilemap;
 
     private bool isFacingRight = true;
     private bool isGrounded = false;
@@ -36,7 +37,6 @@ public class PlayerController : MonoBehaviour
     new private Rigidbody2D rigidbody;
     new private BoxCollider2D collider;
 
-
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -45,8 +45,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Ducking
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (!collider.IsTouching(tilemap.GetComponent<Collider2D>()))
+        {
+            print("Hit");
+        }
+
+            // Ducking
+            if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             tryDuck = true;
         }
@@ -198,24 +203,31 @@ public class PlayerController : MonoBehaviour
         {
             if (crouchSkill)
             {
-                const float ySize = 2f;
+                const float ySize = 1f;
                 const float xSize = 2f;
                 collider.size = new Vector3(xSize, ySize);
+                collider.offset = new Vector3(0, -0.5f);
 
                 speed = 1f;
 
                 animator.SetBool("IsCrouching", true);
             }
         }
-        else if (!tryCrouch)
+
+        if (!tryCrouch)
         {
-            const float ySize = 2f;
-            const float xSize = 1f;
-            collider.size = new Vector3(xSize, ySize);
+            //if (!collider.IsTouching(tilemap.GetComponent<Collider2D>())) {
 
-            speed = 5f;
+                print("Hit");
+                const float ySize = 2f;
+                const float xSize = 1f;
+                collider.size = new Vector3(xSize, ySize);
+                collider.offset = new Vector3(0, 0);
 
-            animator.SetBool("IsCrouching", false);
+                speed = 5f;
+
+                animator.SetBool("IsCrouching", false);
+            //}
         }
 
         // Flip the character around if it's facing the wrong direction
