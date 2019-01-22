@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public GameObject tilemap;
 
+    private GameObject checkpoint;
+
     private bool isFacingRight = true;
     private bool isGrounded = false;
     private bool tryJump = false;
@@ -45,13 +47,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!collider.IsTouching(tilemap.GetComponent<Collider2D>()))
-        {
-            print("Hit");
-        }
+        tryJump = Input.GetButtonDown("Jump") ? true : tryJump;
 
-            // Ducking
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+        // Ducking
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             tryDuck = true;
         }
@@ -91,11 +90,7 @@ public class PlayerController : MonoBehaviour
         //measureJump();
 
         // Jumping
-        if (Input.GetButtonDown("Jump"))
-        {
-            tryJump = true;
-        }
-        else if (isGrounded && rigidbody.velocity.y <= 0)
+        if (!tryJump && (isGrounded && rigidbody.velocity.y <= 0))
         {
             animator.SetBool("IsJumping", false);
         }
@@ -247,5 +242,27 @@ public class PlayerController : MonoBehaviour
         Vector2 flipped = transform.localScale;
         flipped.x *= -1;
         transform.localScale = flipped;
+    }
+
+    void Respawn(Vector2 respawnPosition)
+    {
+        rigidbody.position = respawnPosition;
+    
+        if (!isFacingRight)
+        {
+            Flip();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Checkpoint")
+        {
+            this.checkpoint = collider.gameObject;
+        }
+        else if (collider.gameObject.tag == "Killzone")
+        {
+            this.Respawn(this.checkpoint.transform.position);
+        }
     }
 }

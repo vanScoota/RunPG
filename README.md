@@ -47,3 +47,10 @@ All notable changes to this project will be documented in this file.
 #### Added
 - Camera script again 
 - Changed Crouching Sprites 
+
+### [0.1.7] - 2019-01-22
+#### Added
+- Put Respawn and Checkpoints into PlayerController 
+- Camra Controller
+
+

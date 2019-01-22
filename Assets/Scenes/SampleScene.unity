@@ -278,6 +278,14 @@ CompositeCollider2D:
         Y: -10000000
       - X: 590000000
         Y: -10000000
+    - - X: 110000000
+        Y: 10000000
+      - X: 100000000
+        Y: 10000000
+      - X: 100000000
+        Y: -10000000
+      - X: 110000000
+        Y: -10000000
     - - X: 680000000
         Y: -10000000
       - X: 670000000
@@ -376,6 +384,10 @@ CompositeCollider2D:
       - {x: 57, y: 1}
       - {x: 57, y: -1}
       - {x: 59, y: -1}
+    - - {x: 11, y: 1}
+      - {x: 10, y: 1}
+      - {x: 10, y: -1}
+      - {x: 11, y: -1}
     - - {x: 68, y: -1}
       - {x: 67, y: -1}
       - {x: 67, y: -8}
@@ -4747,6 +4759,15 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
+  - first: {x: 10, y: -1, z: 0}
+    second:
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
   - first: {x: 45, y: -1, z: 0}
     second:
       m_TileIndex: 5
@@ -5003,6 +5024,15 @@ Tilemap:
     second:
       m_TileIndex: 4
       m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
+  - first: {x: 10, y: 0, z: 0}
+    second:
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -5534,7 +5564,7 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 66
     m_Data: {fileID: 11400000, guid: bb2a3b298bb0bb644b3e663aa7f2da19, type: 2}
-  - m_RefCount: 28
+  - m_RefCount: 30
     m_Data: {fileID: 11400000, guid: 5f1bf23b6865d60418094db85c321969, type: 2}
   - m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 01c1bd6f4334577488e6ef621078ea36, type: 2}
@@ -5559,7 +5589,7 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 66
     m_Data: {fileID: 21300002, guid: b5410f2ba69814b4893f6cb4f2fa3fbf, type: 3}
-  - m_RefCount: 28
+  - m_RefCount: 30
     m_Data: {fileID: 21300018, guid: b5410f2ba69814b4893f6cb4f2fa3fbf, type: 3}
   - m_RefCount: 7
     m_Data: {fileID: 21300016, guid: b5410f2ba69814b4893f6cb4f2fa3fbf, type: 3}
@@ -5582,7 +5612,7 @@ Tilemap:
   - m_RefCount: 11
     m_Data: {fileID: 21300014, guid: b5410f2ba69814b4893f6cb4f2fa3fbf, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 560
+  - m_RefCount: 562
     m_Data:
       e00: 1
       e01: 0
@@ -5601,7 +5631,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 560
+  - m_RefCount: 562
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5635,10 +5665,9 @@ GameObject:
   m_Component:
   - component: {fileID: 510759191}
   - component: {fileID: 510759190}
-  - component: {fileID: 510759192}
   m_Layer: 0
   m_Name: Checkpoint 02
-  m_TagString: Respawn
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5674,25 +5703,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 510759189}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.16, y: -3.87, z: -0.3828125}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.43, y: 3.54, z: -0.3828125}
   m_LocalScale: {x: 1.06, y: 15.78, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &510759192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 510759189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd9df0dc42409a429eac3eaf8edbd33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelmanager: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5963,7 +5980,7 @@ GameObject:
   - component: {fileID: 1231178488}
   m_Layer: 0
   m_Name: Killzone
-  m_TagString: Untagged
+  m_TagString: Killzone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6004,7 +6021,7 @@ Transform:
   m_LocalScale: {x: -82.08, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1231178488
 MonoBehaviour:
@@ -6017,49 +6034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad323b12b062664f814d85754f64817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelManager: {fileID: 1520616427}
---- !u!1 &1520616426
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1520616428}
-  - component: {fileID: 1520616427}
-  m_Layer: 0
-  m_Name: LevelManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1520616427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1520616426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2965f070cc42c1c4d84d29f40fe2e141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentCheckpoint: {fileID: 1653806940}
-  player: {fileID: 716990978}
---- !u!4 &1520616428
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1520616426}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.53, y: -3.87, z: -0.3828125}
-  m_LocalScale: {x: 1.06, y: 15.78, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  LevelManager: {fileID: 0}
 --- !u!1 &1653806940
 GameObject:
   m_ObjectHideFlags: 0
@@ -6069,10 +6044,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1653806942}
   - component: {fileID: 1653806941}
-  - component: {fileID: 1653806943}
   m_Layer: 0
   m_Name: Checkpoint 01
-  m_TagString: Respawn
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6109,21 +6083,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1653806940}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.97, y: 2.34, z: -0.3828125}
+  m_LocalPosition: {x: -2.9699993, y: 2.3400002, z: -0.3828125}
   m_LocalScale: {x: 1.06, y: 15.78, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1653806943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1653806940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd9df0dc42409a429eac3eaf8edbd33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelmanager: {fileID: 0}
