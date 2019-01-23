@@ -53,4 +53,10 @@ All notable changes to this project will be documented in this file.
 - Put Respawn and Checkpoints into PlayerController 
 - Camra Controller
 
+### [0.1.8] - 2019-01-23
+#### Added
+- controllability with w+a+s+d keys
+#### Improved 
+- crouching and ducking
+
 

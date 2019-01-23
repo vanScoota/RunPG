@@ -25,9 +25,11 @@ public class PlayerController : MonoBehaviour
     public float highJumpHeight = 14f;
     public LayerMask groundLayers;
     public Animator animator;
-    public GameObject tilemap;
+    public GameObject crouchCollider;
 
     private GameObject checkpoint;
+    //private CrouchColliderControler ccd;
+    
 
     private bool isFacingRight = true;
     private bool isGrounded = false;
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
     private bool hasDoubleJumped = false;
     private bool tryCrouch = false;
     private bool tryDuck = false;
+    //private bool trigger = false;
+    //private bool implemented = false;
 
     new private Rigidbody2D rigidbody;
     new private BoxCollider2D collider;
@@ -49,28 +53,29 @@ public class PlayerController : MonoBehaviour
     {
         tryJump = Input.GetButtonDown("Jump") ? true : tryJump;
 
-        // Ducking
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+
+        // ducking
+        if (Input.GetButtonDown("Crouch"))
         {
             tryDuck = true;
         }
-        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        else if (Input.GetButtonUp("Crouch"))
         {
             tryDuck = false;
         }
 
-        // Crouching
-        if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow)) && animator.GetBool("IsDucking"))
+
+        if ((Input.GetButtonDown("Horizontal") && Input.GetButton("Crouch")) || (Input.GetButtonDown("Crouch") && Input.GetButton("Horizontal"))) 
         {
             tryCrouch = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
+        } 
+        else if (Input.GetButtonUp("Crouch"))
         {
             tryCrouch = false;
         }
 
         // GameOver
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             animator.SetBool("GameOver", true);
 
@@ -140,6 +145,10 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+
+        //GameObject crouchCollider = GameObject.Find("CrouchCollider 01");
+        //ccd = crouchCollider.GetComponent<CrouchColliderControler>();
+
         // Use GetAxisRaw for more precise movement
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
@@ -198,12 +207,19 @@ public class PlayerController : MonoBehaviour
         {
             if (crouchSkill)
             {
+                //if(!implemented)
+                //{
+                //    headCollider = gameObject.AddComponent<BoxCollider2D>();
+                //    headCollider.size = new Vector2(1, 0.5380561f);
+                //    headCollider.offset = new Vector2(0, 0.3262531f);
+                //    headCollider.isTrigger = true;
+                //    implemented = true;
+                //}
+
                 const float ySize = 1f;
                 const float xSize = 2f;
                 collider.size = new Vector3(xSize, ySize);
                 collider.offset = new Vector3(0, -0.5f);
-
-                speed = 1f;
 
                 animator.SetBool("IsCrouching", true);
             }
@@ -211,18 +227,17 @@ public class PlayerController : MonoBehaviour
 
         if (!tryCrouch)
         {
-            //if (!collider.IsTouching(tilemap.GetComponent<Collider2D>())) {
+            //Destroy(headCollider);
+            //implemented = false;
 
-                print("Hit");
-                const float ySize = 2f;
-                const float xSize = 1f;
-                collider.size = new Vector3(xSize, ySize);
-                collider.offset = new Vector3(0, 0);
+            const float ySize = 2f;
+            const float xSize = 1f;
+            collider.size = new Vector3(xSize, ySize);
+            collider.offset = new Vector3(0, 0);
 
-                speed = 5f;
+            speed = 5f;
 
-                animator.SetBool("IsCrouching", false);
-            //}
+            animator.SetBool("IsCrouching", false);
         }
 
         // Flip the character around if it's facing the wrong direction
