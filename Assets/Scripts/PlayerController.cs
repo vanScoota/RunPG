@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This class controls the movement and animation of the player object.true
@@ -49,6 +50,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            SceneManager.LoadSceneAsync("Menu");
+        }
+
         // Jump
         tryJump = Input.GetButtonDown("Jump") ? true : tryJump;
 
