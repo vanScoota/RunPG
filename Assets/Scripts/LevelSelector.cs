@@ -11,7 +11,7 @@ public class LevelSelector : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        PlayerPrefs.SetInt("SampleScene", 1);
+        PlayerPrefs.SetInt("Level1", 1);
 
         if (PlayerPrefs.GetInt(sceneToLoad.ToString()) == 1)
         {

@@ -20,6 +20,12 @@ public class FinishFlagController : MonoBehaviour
 		if (collider.gameObject.tag == "Player")
 		{
 			SceneManager.LoadSceneAsync(nextSceneName);
-		}
+
+            if (PlayerPrefs.GetInt(nextSceneName.ToString()) == 0)
+            {
+                //Level not activ -> enable
+                PlayerPrefs.SetInt(nextSceneName.ToString(), 1);
+            }
+        }
 	}
 }
