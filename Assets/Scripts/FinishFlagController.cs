@@ -3,20 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This class handles the trigger of the finish flags at the end of each level.
+/// </summary>
 public class FinishFlagController : MonoBehaviour
 {
 	public string nextSceneName;
-	new private BoxCollider2D collider;
-
-	void Start()
-	{
-		collider = GetComponent<BoxCollider2D>();
-	}
-	
-	void Update()
-	{
-		
-	}
 
 	/// <summary>
 	/// Checks for collisions with other game objects.

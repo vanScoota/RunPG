@@ -9,12 +9,10 @@ public class CameraSwitch : MonoBehaviour
 
     private int m_CurrentActiveObject;
 
-
     private void OnEnable()
     {
        text.text = objects[m_CurrentActiveObject].name;
     }
-
 
     public void NextCamera()
     {

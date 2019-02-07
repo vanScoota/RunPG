@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// This class controls the movement and animation of the player object.true
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     public bool jumpSkill = false;
     public bool doubleJumpSkill = false;
     public bool highJumpSkill = false;
-    public bool duckSkill = false;
     public bool crouchSkill = false;
 
     private float speed = 5f;
@@ -18,59 +20,52 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask groundLayers;
     public Animator animator;
-    public GameObject crouchCollider;
 
-    private GameObject checkpoint;
-    //private CrouchColliderControler ccd;
+    private GameObject lastCheckpoint;
     
-
     private bool isFacingRight = true;
-    public bool isGrounded = false;
+    private bool isGrounded = false;
+    private bool hasHeadSpace = true;
     private bool tryJump = false;
-    public bool hasDoubleJumped = false;
+    private bool hasDoubleJumped = false;
     private bool tryCrouch = false;
     private bool tryDuck = false;
-    //private bool trigger = false;
-    //private bool implemented = false;
 
     new private Rigidbody2D rigidbody;
     new private BoxCollider2D collider;
 
+    /// <summary>
+    /// Initially get properties from object.
+    /// </summary>
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
     }
 
+    /// <summary>
+    /// Get user input every real frame.
+    /// </summary>
     void Update()
     {
         // Jump
         tryJump = Input.GetButtonDown("Jump") ? true : tryJump;
 
         // Duck
-        if (Input.GetButtonDown("Crouch"))
-        {
-            tryDuck = true;
-        }
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            tryDuck = false;
-        }
+        tryDuck = Input.GetButton("Crouch") ? true : false;
 
         // Crouch
-        if ((Input.GetButtonDown("Horizontal") && Input.GetButton("Crouch")) || (Input.GetButtonDown("Crouch") && Input.GetButton("Horizontal"))) 
-        {
-            tryCrouch = true;
-        } 
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            tryCrouch = false;
-        }
+        tryCrouch = tryDuck && Input.GetButton("Horizontal") ? true : false;
     }
 
+    /// <summary>
+    /// Check surroundings and handle user input every calculated frame.
+    /// </summary>
     void FixedUpdate()
     {
         CheckForGround();
+        CheckHeadSpace();
+
         Move();
 
         // Jumping
@@ -97,14 +92,26 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks, if the player has enough room about his head to potentially get up.
+    /// The check result is saved in a class attribute.
+    /// </summary>
+    void CheckHeadSpace()
+    {
+        Vector2 position = new Vector2(transform.position.x, transform.position.y);
+        float horizontalOffset = 0.49f;
+        float verticalOffset = 1.4f;
+
+        Vector2 topLeft = position + new Vector2(-horizontalOffset, +verticalOffset);
+        Vector2 bottomRight = position + new Vector2(horizontalOffset, 0);
+
+        hasHeadSpace = !Physics2D.OverlapArea(topLeft, bottomRight, groundLayers);
+    }
+
+    /// <summary>
     /// Calculates and executes the player's next move.true
     /// </summary>
     void Move()
     {
-
-        //GameObject crouchCollider = GameObject.Find("CrouchCollider 01");
-        //ccd = crouchCollider.GetComponent<CrouchColliderControler>();
-
         // Use GetAxisRaw for more precise movement
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
@@ -112,11 +119,51 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
+        
+        if (crouchSkill)
+        {
+            // Duck
+            if (tryDuck)
+            {
+                animator.SetBool("IsDucking", true);
+            }
+            else
+            {
+                if (hasHeadSpace)
+                {
+                    animator.SetBool("IsDucking", false);
+                }
+            }
+
+            // Crouch
+            if (tryCrouch)
+            {
+                const float ySize = 1f;
+                const float xSize = 2f;
+                collider.size = new Vector3(xSize, ySize);
+                collider.offset = new Vector3(0, -0.5f);
+
+                animator.SetBool("IsCrouching", true);
+            }
+            else
+            {
+                if (hasHeadSpace)
+                {
+                    const float ySize = 2f;
+                    const float xSize = 1f;
+                    collider.size = new Vector3(xSize, ySize);
+                    collider.offset = new Vector3(0, 0);
+
+                    animator.SetBool("IsCrouching", false);
+                }
+            }
+        }
+
         // Jump
         bool doJump = false;
         if (tryJump)
         {
-            if (jumpSkill)
+            if (jumpSkill && !animator.GetBool("IsDucking"))
             {
                 animator.SetBool("IsJumping", true);
 
@@ -137,55 +184,6 @@ public class PlayerController : MonoBehaviour
         float verticalMove = doJump ? (highJumpSkill ? highJumpHeight : jumpHeight) : rigidbody.velocity.y;
 
         rigidbody.velocity = new Vector2(horizontalMove, verticalMove);
-
-        // Duck
-        if (tryDuck)
-        {
-            if (duckSkill)
-            {
-                animator.SetBool("IsDucking", true);
-            }
-        }
-        else if (!tryDuck)
-        {
-            animator.SetBool("IsDucking", false);
-        }
-
-        // Crouch
-        if (tryCrouch)
-        {
-            if (crouchSkill)
-            {
-                //if(!implemented)
-                //{
-                //    headCollider = gameObject.AddComponent<BoxCollider2D>();
-                //    headCollider.size = new Vector2(1, 0.5380561f);
-                //    headCollider.offset = new Vector2(0, 0.3262531f);
-                //    headCollider.isTrigger = true;
-                //    implemented = true;
-                //}
-
-                const float ySize = 1f;
-                const float xSize = 2f;
-                collider.size = new Vector3(xSize, ySize);
-                collider.offset = new Vector3(0, -0.5f);
-
-                animator.SetBool("IsCrouching", true);
-            }
-        }
-
-        if (!tryCrouch)
-        {
-            //Destroy(headCollider);
-            //implemented = false;
-
-            const float ySize = 2f;
-            const float xSize = 1f;
-            collider.size = new Vector3(xSize, ySize);
-            collider.offset = new Vector3(0, 0);
-
-            animator.SetBool("IsCrouching", false);
-        }
 
         // Flip the character around if it's facing the wrong direction
         if (horizontalInput > 0 && !isFacingRight)
@@ -214,7 +212,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Respawn()
     {
-        Vector3 respawnPosition = this.checkpoint.transform.position;
+        Vector3 respawnPosition = this.lastCheckpoint.transform.position;
         respawnPosition.y += 3;
         rigidbody.position = respawnPosition;
 
@@ -234,7 +232,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.tag == "Checkpoint")
         {
-            this.checkpoint = collider.gameObject;
+            this.lastCheckpoint = collider.gameObject;
         }
         else if (collider.gameObject.tag == "Killzone")
         {

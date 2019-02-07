@@ -17,9 +17,6 @@ public class CameraController : MonoBehaviour {
     void Update()
     {
         CamTransform.position = new Vector3(Mathf.Clamp(Player.position.x, minCameraPos.x, maxCameraPos.x), 
-            Mathf.Clamp(CamTransform.position.y, minCameraPos.y, maxCameraPos.y), Mathf.Clamp(CamTransform.position.z, minCameraPos.z, maxCameraPos.z));
-        
+        Mathf.Clamp(CamTransform.position.y, minCameraPos.y, maxCameraPos.y), Mathf.Clamp(CamTransform.position.z, minCameraPos.z, maxCameraPos.z));
     }
-
-
 }

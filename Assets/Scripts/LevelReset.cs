@@ -11,7 +11,6 @@ public class LevelReset :MonoBehaviour , IPointerClickHandler
         SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
     }
 
-
     private void Update()
     {
     }
