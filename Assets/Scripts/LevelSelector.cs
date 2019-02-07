@@ -4,11 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class handles the trigger of the buttons in the levelselector scene.
+/// </summary>
+/// 
+
+
+
 public class LevelSelector : MonoBehaviour {
 
     public string sceneToLoad;
-
-	// Use this for initialization
+    /// <summary>
+    /// Checks availability of each scene.
+    /// </summary>
 	void Start () {
 
         PlayerPrefs.SetInt("Level1", 1);
@@ -22,11 +30,6 @@ public class LevelSelector : MonoBehaviour {
         {
             this.GetComponent<Button>().interactable = false;
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
     public void LoadLevel()

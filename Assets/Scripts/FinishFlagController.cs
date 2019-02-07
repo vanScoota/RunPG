@@ -12,7 +12,7 @@ public class FinishFlagController : MonoBehaviour
 
 	/// <summary>
 	/// Checks for collisions with other game objects.
-	/// If the other object is the player, load the next scene.
+	/// If the other object is the player, load the next scene and enable next Scene.
 	/// </summary>
 	/// <param name="collider">Collider of the colliding object.</param>
 	void OnTriggerEnter2D(Collider2D collider)
