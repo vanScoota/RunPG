@@ -3,21 +3,20 @@ Jump 'n' Run meets RPG!
 
 ## ACHTUNG!
 ### Skills
-Level 1: keine
-Level 2: Sprung
-Level 3: Sprung, Doppelsprung
-Level 4: Sprung, Doppelsprung, Kriechen
-Level 5: Sprung, Doppelsprung, Kriechen
-Level 6: hoher Sprung, Doppelsprung, Kriechen
+* Level 1: keine
+* Level 2: Sprung
+* Level 3: Sprung, Doppelsprung
+* Level 4: Sprung, Doppelsprung, Kriechen
+* Level 5: Sprung, Doppelsprung, Kriechen
+* Level 6: hoher Sprung, Doppelsprung, Kriechen
 
 ### Sprung-Reichweite
-Sprung: 1 hoch, 3 Lücken weit
-Doppelsprung: 2 hoch, 6 Lücken weit
-hoher Doppelsprung: 4 hoch, 7 Lücken weit
+* Sprung: 1 hoch, 3 Lücken weit
+* Doppelsprung: 2 hoch, 6 Lücken weit
+* hoher Doppelsprung: 4 hoch, 7 Lücken weit
 
 ## TODOs
 ### Max
-- Tileset und Backgrounds für Level 3 und 4 erstellen.
 - Level 3 und 4 erstellen.
 - Spielanleitung korrekturlesen.
 
@@ -96,3 +95,8 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 - Crouching doesn't glitch anymore.
+
+## [0.2.1] - 2019-02-07
+### Added
+- Level 3 is finished.
+- Added tileset and background for Cobblecastle.

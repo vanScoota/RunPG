@@ -23,7 +23,7 @@ public class FinishFlagController : MonoBehaviour
 
             if (PlayerPrefs.GetInt(nextSceneName.ToString()) == 0)
             {
-                //Level not activ -> enable
+                // Level not activ -> enable
                 PlayerPrefs.SetInt(nextSceneName.ToString(), 1);
             }
         }
