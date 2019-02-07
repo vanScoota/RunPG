@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = false;
     private bool hasHeadSpace = true;
     private bool tryJump = false;
+    private bool hasJumped = false;
     private bool hasDoubleJumped = false;
     private bool tryCrouch = false;
     private bool tryDuck = false;
@@ -78,6 +79,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Checks, if the player is touching the ground.
     /// The check result is saved in a class attribute.
+    /// Resets the markers for made (double) jump, if the player is indeed grounded.
     /// </summary>
     void CheckForGround()
     {
@@ -89,6 +91,11 @@ public class PlayerController : MonoBehaviour
         Vector2 bottomRight = position + new Vector2(horizontalOffset, -verticalOffset);
 
         isGrounded = Physics2D.OverlapArea(topLeft, bottomRight, groundLayers);
+
+        if (isGrounded)
+        {
+            hasJumped = hasDoubleJumped = false;
+        }
     }
 
     /// <summary>
@@ -108,19 +115,17 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Calculates and executes the player's next move.true
+    /// Calculates and executes the player's next move.
     /// </summary>
     void Move()
     {
         // Use GetAxisRaw for more precise movement
         float horizontalInput = Input.GetAxisRaw("Horizontal");
-
         float horizontalMove = horizontalInput * speed;
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-        
-        if (crouchSkill)
+        if (crouchSkill && !hasJumped)
         {
             // Duck
             if (tryDuck)
@@ -165,17 +170,17 @@ public class PlayerController : MonoBehaviour
         {
             if (jumpSkill && !animator.GetBool("IsDucking"))
             {
-                animator.SetBool("IsJumping", true);
-
                 if (isGrounded)
                 {
                     doJump = true;
-                    hasDoubleJumped = false;
+                    hasJumped = true;
+                    animator.SetBool("IsJumping", true);
                 }
-                else if (doubleJumpSkill && !hasDoubleJumped)
+                else if (doubleJumpSkill && hasJumped && !hasDoubleJumped)
                 {
                     doJump = true;
                     hasDoubleJumped = true;
+                    animator.SetBool("IsJumping", true);
                 }
             }
             tryJump = false;
