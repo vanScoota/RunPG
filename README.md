@@ -100,3 +100,7 @@ All notable changes to this project will be documented in this file.
 #### Added
 - Level 3 is finished.
 - Added tileset and background for Cobblecastle.
+
+### [0.2.2] - 2019-02-07
+#### Added
+- All levels finished.
