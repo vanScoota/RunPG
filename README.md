@@ -85,7 +85,7 @@ All notable changes to this project will be documented in this file.
 #### Changed
 - Improved rouching and ducking.
 
-## [0.2.0] - 2019-02-07
+### [0.2.0] - 2019-02-07
 #### Added
 - New tilesets for Grassland and Lavahell.
 - Finish flags which load the next scene on collision.
@@ -96,7 +96,7 @@ All notable changes to this project will be documented in this file.
 #### Fixed
 - Crouching doesn't glitch anymore.
 
-## [0.2.1] - 2019-02-07
-### Added
+### [0.2.1] - 2019-02-07
+#### Added
 - Level 3 is finished.
 - Added tileset and background for Cobblecastle.

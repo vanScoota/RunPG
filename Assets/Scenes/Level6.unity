@@ -41699,7 +41699,7 @@ Prefab:
     - target: {fileID: 114415906645668840, guid: 55bfc56a9b4c6364eba974d0c5960198,
         type: 2}
       propertyPath: nextSceneName
-      value: Level1
+      value: Menu
       objectReference: {fileID: 0}
     - target: {fileID: 212675350512916430, guid: 55bfc56a9b4c6364eba974d0c5960198,
         type: 2}

@@ -10623,7 +10623,7 @@ Prefab:
     - target: {fileID: 114375908129427566, guid: eb6a2099b19571b40a4d7414be1d0764,
         type: 2}
       propertyPath: nextSceneName
-      value: Level5
+      value: Level3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb6a2099b19571b40a4d7414be1d0764, type: 2}
