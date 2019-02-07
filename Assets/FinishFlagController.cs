@@ -27,7 +27,7 @@ public class FinishFlagController : MonoBehaviour
 	{
 		if (collider.gameObject.tag == "Player")
 		{
-			SceneManager.LoadSceneAsync(SceneManager.sceneCount + 1);
+			SceneManager.LoadSceneAsync(nextSceneName);
 		}
 	}
 }

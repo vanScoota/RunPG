@@ -66,19 +66,6 @@ public class PlayerController : MonoBehaviour
         {
             tryCrouch = false;
         }
-
-        // Game Over
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            animator.SetBool("GameOver", true);
-
-        }
-
-        // Respawn
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            animator.SetBool("GameOver", false);
-        }
     }
 
     void FixedUpdate()
