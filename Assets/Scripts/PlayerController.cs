@@ -5,24 +5,17 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    // PARAMETERS FOR DEBUGGING JUMPS
-    //public float maxJump = 0;
-    //public float minJump = 999;
-    //public float thisJump = 0;
-    //private float jumpStartHeight = 0;
-    //public float djHeight = 0;
-    //private bool doTheDJ = false;
-
     public bool jumpSkill = false;
     public bool doubleJumpSkill = false;
     public bool highJumpSkill = false;
     public bool duckSkill = false;
     public bool crouchSkill = false;
 
-    public float speed = 5f;
+    private float speed = 5f;
     // best 11  and 14 with 4 gravity
-    public float jumpHeight = 11f;
-    public float highJumpHeight = 14f;
+    private float jumpHeight = 11f;
+    private float highJumpHeight = 14f;
+
     public LayerMask groundLayers;
     public Animator animator;
     public GameObject crouchCollider;
@@ -32,9 +25,9 @@ public class PlayerController : MonoBehaviour
     
 
     private bool isFacingRight = true;
-    private bool isGrounded = false;
+    public bool isGrounded = false;
     private bool tryJump = false;
-    private bool hasDoubleJumped = false;
+    public bool hasDoubleJumped = false;
     private bool tryCrouch = false;
     private bool tryDuck = false;
     //private bool trigger = false;
@@ -51,10 +44,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Jump
         tryJump = Input.GetButtonDown("Jump") ? true : tryJump;
 
-
-        // ducking
+        // Duck
         if (Input.GetButtonDown("Crouch"))
         {
             tryDuck = true;
@@ -64,7 +57,7 @@ public class PlayerController : MonoBehaviour
             tryDuck = false;
         }
 
-
+        // Crouch
         if ((Input.GetButtonDown("Horizontal") && Input.GetButton("Crouch")) || (Input.GetButtonDown("Crouch") && Input.GetButton("Horizontal"))) 
         {
             tryCrouch = true;
@@ -74,14 +67,14 @@ public class PlayerController : MonoBehaviour
             tryCrouch = false;
         }
 
-        // GameOver
+        // Game Over
         if (Input.GetKeyDown(KeyCode.K))
         {
             animator.SetBool("GameOver", true);
 
         }
 
-        // Resporn
+        // Respawn
         if (Input.GetKeyDown(KeyCode.L))
         {
             animator.SetBool("GameOver", false);
@@ -92,7 +85,6 @@ public class PlayerController : MonoBehaviour
     {
         CheckForGround();
         Move();
-        //measureJump();
 
         // Jumping
         if (!tryJump && (isGrounded && rigidbody.velocity.y <= 0))
@@ -101,31 +93,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //void measureJump()
-    //{
-    //    float heightDelta = rigidbody.position.y - jumpStartHeight;
-    //    if (heightDelta > thisJump)
-    //    {
-    //        thisJump = heightDelta;
-
-    //        if (thisJump > maxJump)
-    //        {
-    //            maxJump = thisJump;
-    //        }
-    //    }
-    //}
-
-    //void autoDJ()
-    //{
-    //    float jH = rigidbody.position.y - jumpStartHeight;
-    //    if (jH >= djHeight && !hasDoubleJumped && doubleJumpSkill)
-    //    {
-    //        print("DJ");
-    //        rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpHeight);
-    //        hasDoubleJumped = true;
-    //    }
-    //}
-
+    /// <summary>
+    /// Checks, if the player is touching the ground.
+    /// The check result is saved in a class attribute.
+    /// </summary>
     void CheckForGround()
     {
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
@@ -136,13 +107,11 @@ public class PlayerController : MonoBehaviour
         Vector2 bottomRight = position + new Vector2(horizontalOffset, -verticalOffset);
 
         isGrounded = Physics2D.OverlapArea(topLeft, bottomRight, groundLayers);
-
-        //if (isGrounded && thisJump != 0 && thisJump < minJump)
-        //{
-        //    minJump = thisJump;
-        //}
     }
 
+    /// <summary>
+    /// Calculates and executes the player's next move.true
+    /// </summary>
     void Move()
     {
 
@@ -151,8 +120,6 @@ public class PlayerController : MonoBehaviour
 
         // Use GetAxisRaw for more precise movement
         float horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        speed = 5;
 
         float horizontalMove = horizontalInput * speed;
 
@@ -170,9 +137,6 @@ public class PlayerController : MonoBehaviour
                 {
                     doJump = true;
                     hasDoubleJumped = false;
-
-                    //thisJump = 0;
-                    //jumpStartHeight = rigidbody.position.y;
                 }
                 else if (doubleJumpSkill && !hasDoubleJumped)
                 {
@@ -182,8 +146,6 @@ public class PlayerController : MonoBehaviour
             }
             tryJump = false;
         }
-
-        //autoDJ();
 
         float verticalMove = doJump ? (highJumpSkill ? highJumpHeight : jumpHeight) : rigidbody.velocity.y;
 
@@ -235,8 +197,6 @@ public class PlayerController : MonoBehaviour
             collider.size = new Vector3(xSize, ySize);
             collider.offset = new Vector3(0, 0);
 
-            speed = 5f;
-
             animator.SetBool("IsCrouching", false);
         }
 
@@ -251,6 +211,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Flips the player around horizontally.
+    /// </summary>
     void Flip()
     {
         isFacingRight = !isFacingRight;
@@ -259,16 +222,27 @@ public class PlayerController : MonoBehaviour
         transform.localScale = flipped;
     }
 
-    void Respawn(Vector2 respawnPosition)
+    /// <summary>
+    /// Revives the player at the last checkpoint.
+    /// </summary>
+    void Respawn()
     {
+        Vector3 respawnPosition = this.checkpoint.transform.position;
+        respawnPosition.y += 3;
         rigidbody.position = respawnPosition;
-    
+
         if (!isFacingRight)
         {
             Flip();
         }
     }
 
+    /// <summary>
+    /// Checks for collisions with other game objects.
+    /// If the other game object is a checkpoint, update the player's respawn position.
+    /// If the other game object is a killzone, respawn the player.
+    /// </summary>
+    /// <param name="collider">Collider of the colliding object.</param>
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Checkpoint")
@@ -277,7 +251,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collider.gameObject.tag == "Killzone")
         {
-            this.Respawn(this.checkpoint.transform.position);
+            this.Respawn();
         }
     }
 }
